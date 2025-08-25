@@ -70,30 +70,6 @@ export type PasswordPolicy = {
     return chars.join('');
   }
   
-  export function generateDateOfBirthParts(minAge = 18, maxAge = 65): DobParts {
-    if (minAge < 0 || maxAge < 0 || maxAge < minAge) {
-      throw new Error(`Invalid age range: minAge=${minAge}, maxAge=${maxAge}`);
-    }
-    const today = new Date();
-    const maxDob = new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate());
-    const minDob = new Date(today.getFullYear() - maxAge, today.getMonth(), today.getDate());
-    const ts = randInt(minDob.getTime(), maxDob.getTime());
-    const d = new Date(ts);
-  
-    const monthsEn = [
-      'January','February','March','April','May','June',
-      'July','August','September','October','November','December'
-    ];
-    const year = String(d.getFullYear());
-    const monthIndex = d.getMonth();
-    const monthValue = String(monthIndex + 1);
-    const monthLabel = monthsEn[monthIndex];
-    const day = String(d.getDate());
-  
-    const iso = toISO(d);
-    return { day, monthValue, monthLabel, year, iso };
-  }
-  
   export function generateAddress(overrides: Partial<AddressParts> = {}): AddressParts {
     const country = 'United States';
     const statesUS = ['CA', 'TX', 'NY', 'FL', 'WA', 'IL', 'AZ', 'GA'];
@@ -118,7 +94,7 @@ export type PasswordPolicy = {
     return names[Math.floor(Math.random() * names.length)];
   }
   export function randomLastName() {
-    const names = ['Castro', 'Gonzales', 'Jimenez', 'Martínez', 'Mora', 'Chamorro', 'Sánchez', 'Díaz', 'Fernández'];
+    const names = ['Castro', 'Gonzales', 'Jimenez', 'Martinez', 'Mora', 'Chamorro', 'Sanchez', 'Diaz', 'Fernandez'];
     return names[Math.floor(Math.random() * names.length)];
   }
   

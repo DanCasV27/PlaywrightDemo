@@ -21,7 +21,6 @@ export type UserSignup={
     lastname:string
     email:string
     password:string
-    company:string
     phone:string
 }&AddressParts
 
@@ -44,7 +43,8 @@ export class UserBuilder{
         const company="DanielCastroTesting"
         const phone = "1234567890";
         const address = generateAddress();
-        return { name, lastname, email, password , company, phone,...address };
+        const user: UserSignup = { name, lastname, email, password , phone,...address };
+        return user;
       }
     
       buildLogin(overrides: Partial<UserLogin> = {}): UserLogin {

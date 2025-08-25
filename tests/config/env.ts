@@ -1,8 +1,9 @@
-export const BASE_URL = process.env.BASE_URL || 'https://automationexercise.com/';
+export const BASE_URL = process.env.BASE_URL|| '';
 
 // Credenciales para login E2E (usadas en UserBuilder)
-export const E2E_USER_EMAIL = process.env.E2E_USER_EMAIL || 'semoha8901@iotrama.com';
-export const E2E_USER_PASSWORD = process.env.E2E_USER_PASSWORD || 'Test@12345';
+
+export const E2E_USER_EMAIL = process.env.E2E_USER_EMAIL||'';
+export const E2E_USER_PASSWORD = process.env.E2E_USER_PASSWORD||'';
 
 // Configuración de tiempo de espera global para acciones (útil para apps lentas o flujos complejos)
 export const DEFAULT_TIMEOUT = process.env.DEFAULT_TIMEOUT
