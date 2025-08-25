@@ -95,57 +95,30 @@ export type PasswordPolicy = {
   }
   
   export function generateAddress(overrides: Partial<AddressParts> = {}): AddressParts {
-    const countries = ['United States', 'Mexico', 'Spain', 'Argentina', 'Colombia', 'Chile'];
+    const country = 'United States';
     const statesUS = ['CA', 'TX', 'NY', 'FL', 'WA', 'IL', 'AZ', 'GA'];
-    const statesMX = ['CDMX', 'JAL', 'NLE', 'PUE', 'MEX', 'GUA'];
     const citiesUS = ['San Francisco', 'Austin', 'New York', 'Miami', 'Seattle', 'Chicago', 'Phoenix', 'Atlanta'];
-    const citiesMX = ['Ciudad de México', 'Guadalajara', 'Monterrey', 'Puebla', 'Toluca', 'León'];
   
     const pick = <T>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
-  
-    const country = overrides.country ?? weightedPick([
-      { v: 'United States', w: 6 },
-      { v: 'Mexico', w: 3 },
-      { v: 'Spain', w: 2 },
-      { v: 'Argentina', w: 2 },
-      { v: 'Colombia', w: 2 },
-      { v: 'Chile', w: 2 },
-    ]);
-  
-    let state: string;
-    let city: string;
-    if (country === 'United States') {
-      state = overrides.state ?? pick(statesUS);
-      city = overrides.city ?? pick(citiesUS);
-    } else if (country === 'Mexico') {
-      state = overrides.state ?? pick(statesMX);
-      city = overrides.city ?? pick(citiesMX);
-    } else {
-      state = overrides.state ?? '—';
-      city = overrides.city ?? '—';
-    }
   
     const streetNames = ['Main', 'Oak', 'Maple', 'Cedar', 'Pine', 'Elm', 'Sunset', 'Riverside', 'Lake', 'Hill'];
     const streetTypes = ['St', 'Ave', 'Blvd', 'Rd', 'Way', 'Ln', 'Dr', 'Terrace'];
     const number = randInt(10, 9999);
     const street = `${pick(streetNames)} ${pick(streetTypes)}`;
+    const state = pick(statesUS);
+    const city = pick(citiesUS);
     const address = overrides.address ?? `${number} ${street}`;
     const zipcode = overrides.zipcode ?? randDigits(5);
-      (country === 'United States'
-        ? `+1 555-${randDigits(3)}-${randDigits(4)}`
-        : country === 'Mexico'
-        ? `+52 55 ${randDigits(4)} ${randDigits(4)}`
-        : `+${randInt(30, 99)} ${randDigits(3)} ${randDigits(3)} ${randDigits(3)}`);
   
     return { address, country, state, city, zipcode};
   }
   
   export function randomFirstName() {
-    const names = ['Ana', 'Luis', 'Sofía', 'Carlos', 'María', 'Diego', 'Lucía', 'Javier', 'Valentina', 'Pedro'];
+    const names = ['Daniel', 'Jeremy', 'Randy', 'Louis', 'María', 'Diego', 'Lucía', 'Javier', 'Valentina', 'Pedro'];
     return names[Math.floor(Math.random() * names.length)];
   }
   export function randomLastName() {
-    const names = ['García', 'Pérez', 'López', 'Martínez', 'Rodríguez', 'Hernández', 'Sánchez', 'Díaz', 'Fernández'];
+    const names = ['Castro', 'Gonzales', 'Jimenez', 'Martínez', 'Mora', 'Chamorro', 'Sánchez', 'Díaz', 'Fernández'];
     return names[Math.floor(Math.random() * names.length)];
   }
   
@@ -162,12 +135,4 @@ export type PasswordPolicy = {
   function toISO(d: Date) {
     const pad = (n: number) => String(n).padStart(2, '0');
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-  }
-  function weightedPick<T>(items: Array<{ v: T; w: number }>): T {
-    const total = items.reduce((s, it) => s + it.w, 0);
-    let r = Math.random() * total;
-    for (const it of items) {
-      if ((r -= it.w) <= 0) return it.v;
-    }
-    return items[0].v;
   }

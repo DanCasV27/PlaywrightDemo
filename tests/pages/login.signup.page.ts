@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from "@playwright/test";
+import { BASE_URL,E2E_USER_EMAIL,E2E_USER_PASSWORD } from "../config/env";
 export class LoginSignupPage{
     constructor(private readonly page: Page) {
         this.emailLoginInput = page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address')
@@ -10,11 +11,11 @@ export class LoginSignupPage{
         this.signUpNameInput = page.getByRole('textbox', { name: 'Name' })
     }
     goto() {
-        return this.page.goto('/login');
+        return this.page.goto(`${BASE_URL}/login`);
     }
-    async loginValidCredentials(credentials: { email: string; password: string }) {
-        await this.emailLoginInput.fill(credentials.email);
-        await this.passwordInput.fill(credentials.password);
+    async loginValidCredentials() {
+        await this.emailLoginInput.fill(E2E_USER_EMAIL);
+        await this.passwordInput.fill(E2E_USER_PASSWORD);
         await this.loginButton.click();
         
     }
