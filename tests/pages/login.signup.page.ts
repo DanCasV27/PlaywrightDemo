@@ -6,8 +6,8 @@ export class LoginSignupPage{
         this.passwordInput = page.getByRole('textbox', { name: 'Password' })
         this.loginButton = page.getByRole('button', { name: 'Login' })
         this.errorMessage = page.getByText('Your email or password is incorrect!')
-        this.signUpButton= page.getByRole('button', { name: 'Sign Up' })
-        this.signUpEmailInput = page.getByPlaceholder('Email Address')
+        this.signUpButton= page.getByRole('button', { name: 'Signup' })
+        this.signUpEmailInput = page.locator('form', { hasText: 'Signup' }).getByPlaceholder('Email Address');
         this.signUpNameInput = page.getByRole('textbox', { name: 'Name' })
     }
     goto() {
@@ -26,10 +26,10 @@ export class LoginSignupPage{
         await expect(this.errorMessage).toBeVisible();
         
     }
-    async startSignUp(credentials: { email: string; name: string }) {
+    async startSignUp(credentials: { email: string; name: string},redirectpage: Page) {
         await this.signUpNameInput.fill(credentials.name);
         await this.signUpEmailInput.fill(credentials.email);
-        await this.signUpButton.click();
+        await this.signUpButton.click();        
         
     }
     readonly emailLoginInput: Locator;

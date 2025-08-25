@@ -1,9 +1,7 @@
 import { 
 AddressParts,
-DobParts,
 PasswordPolicy,
 generateAddress,
-generateDateOfBirthParts,
 generatePassword,
 randomFirstName,
 randomLastName,
@@ -25,7 +23,6 @@ export type UserSignup={
     password:string
     company:string
     phone:string
-    DateOfBirth:string
 }&AddressParts
 
 export class UserBuilder{
@@ -46,9 +43,8 @@ export class UserBuilder{
         const password = overrides.password ?? generatePassword();
         const company="DanielCastroTesting"
         const phone = "1234567890";
-        const dob= generateDateOfBirthParts();
         const address = generateAddress();
-        return { name, lastname, email, password , company, phone, DateOfBirth:dob.iso,...address };
+        return { name, lastname, email, password , company, phone,...address };
       }
     
       buildLogin(overrides: Partial<UserLogin> = {}): UserLogin {
