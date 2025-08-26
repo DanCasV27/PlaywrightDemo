@@ -22,6 +22,7 @@ test.describe('Sign up Flows', () => {
     await loginSignUpPage.goto();
     await loginSignUpPage.startSignUp(user, page);
     const registerPage= new RegisterPage(page);
+    await registerPage.verifyRegistrationRedirect(user.name, user.email);
     await registerPage.completeRegistration(user);
     const accountCreatedPage=new AccountCreatedPage(page);
     await accountCreatedPage.verifyAccountCreated();

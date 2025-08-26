@@ -41,7 +41,6 @@ export class RegisterPage{
         await expect(this.emailInput).toHaveValue(email);
     }
     async completeRegistration(user: UserSignup) {
-        await expect(this.page).toHaveURL(`${BASE_URL}/signup`);
         await this.passwordInput.fill(user.password);
         await this.firstnameInput.fill(user.name);
         await this.lastNameInput.fill(user.lastname);
